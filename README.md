@@ -1,6 +1,6 @@
 # DiscoveryExtractor
 
-exemple de ligne de commande: 
+exemple de ligne de commande: (nécessite un JVM)
 
 **./DiscoveryExtractor -s "https://server/api/v1.9/" -u *username* -p *password* -q "search Host" -o ./hosts.csv -xv**
 
