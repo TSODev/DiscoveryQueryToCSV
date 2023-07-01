@@ -24,7 +24,7 @@ interface ServiceApi {
 
         }
 
-        fun apiQueryData(serverUrl: String, query: String, unsafe: Boolean, verbose: Boolean): List<ApiSearchResponse>? {
+        fun apiQueryData(serverUrl: String, query: String, verbose: Boolean, unsafe: Boolean): List<ApiSearchResponse>? {
             val discoveredData: MutableList<ApiSearchResponse> = mutableListOf()
             if (verbose) println("Requetage pour  ($query)")
             getAllDataFragment(serverUrl, unsafe, query, 0, 100, "", discoveredData, verbose)
