@@ -4,6 +4,9 @@
 /build
 /gradle
 
+#MacOS
+.DS_Store
+
 # Compiled class file
 *.class
 
