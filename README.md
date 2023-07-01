@@ -1,5 +1,8 @@
 # DiscoveryExtractor
 
+exemple de ligne de commande: 
+
+**./DiscoveryExtractor -s "https://server/api/v1.9/" -u *username* -p *password* -q "search Host" -o ./hosts.csv -xv**
 
 
 Il s'agit d'un programme en ligne de commande qui permet de créer un fichier de données au format CSV à partir d'une commande de recherche exécutée sur un serveur BMC Discovery
