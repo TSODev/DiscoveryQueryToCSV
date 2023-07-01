@@ -4,9 +4,14 @@ import com.github.doyaaaaaken.kotlincsv.client.CsvWriter
 import com.github.doyaaaaaken.kotlincsv.dsl.context.WriteQuoteMode
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
 import com.xenomachina.argparser.*
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import network.TokenHolder
+
+
+private val logger = KotlinLogging.logger {}
+
 
 class ParsedArgs(parser: ArgParser) {
 
@@ -52,9 +57,17 @@ class ParsedArgs(parser: ArgParser) {
         "-o", "--output",
         help = "Chemin complet du fichier resultat (par défaut : DiscoveryExtractedData.csv) "
     ).default("DiscoveryExtractedData.csv")
+
+//    val debugLevel by parser.mapping(
+//        "--info" to Mode.INFO,
+//        "--debug" to Mode.DEBUG,
+//        "--error" to Mode.ERROR,
+//        help = "niveau de logging")
 }
 
     fun main(args: Array<String>) = mainBody {
+
+
 
         val prologue = "Discovery Extractor : Execute une query de recherche sur le serveur et enregistre les resultats dans un fichier CSV"
         val epilogue = "TSODev pour Orange Business"
@@ -62,9 +75,9 @@ class ParsedArgs(parser: ArgParser) {
         ArgParser(args,ArgParser.Mode.GNU,DefaultHelpFormatter(prologue,epilogue)).parseInto(::ParsedArgs).run {
 
 
-            println("===========================================================================")
-            println(" Discovery Data Extractor - TSO pour Orange Business - 06/23 - version 1.0 ")
-            println("===========================================================================")
+            logger.info("===========================================================================")
+            logger.info(" Discovery Data Extractor - TSO pour Orange Business - 06/23 - version 1.0 ")
+            logger.info("===========================================================================")
 
             val csv_File_Path = output
 
@@ -80,7 +93,9 @@ class ParsedArgs(parser: ArgParser) {
                 }
             }
 
-            if (verbose) println("Exécution de [ $query ] sur $server")
+            if (verbose) logger.info("Exécution de [ $query ] sur $server")
+            else logger.debug("Exécution de [ $query ] sur $server")
+
             apiCallByCoroutines(
                 username,
                 password,
@@ -91,7 +106,8 @@ class ParsedArgs(parser: ArgParser) {
                 csvWriter,
                 csv_File_Path
             )
-            if (verbose) println("Fichier [ $output ] créé")
+            if (verbose) logger.info("Fichier [ $output ] créé")
+            else logger.debug("Fichier [ $output ] créé")
 
         }
     }
@@ -128,7 +144,7 @@ class ParsedArgs(parser: ArgParser) {
                 }
             }
             catch (exception: Exception) {
-                println("Erreur : ${exception.message} , vérifiez les arguments svp...")
+                logger.error(exception){"Erreur : $exception -> vérifiez les arguments svp..."}
             }
         }
     }

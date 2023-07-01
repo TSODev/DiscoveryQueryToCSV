@@ -1,6 +1,7 @@
 package api
 
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import models.*
 import network.RetrofitClient
 import retrofit2.Call
@@ -10,6 +11,7 @@ import java.net.URL
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
+private val logger = KotlinLogging.logger {}
 
 interface ServiceApi {
 
@@ -26,7 +28,8 @@ interface ServiceApi {
 
         fun apiQueryData(serverUrl: String, query: String, verbose: Boolean, unsafe: Boolean): List<ApiSearchResponse>? {
             val discoveredData: MutableList<ApiSearchResponse> = mutableListOf()
-            if (verbose) println("Requetage pour  ($query)")
+            if (verbose) logger.info("Requetage pour  ($query)")
+            else logger.debug("Requetage pour  ($query)")
             getAllDataFragment(serverUrl, unsafe, query, 0, 100, "", discoveredData, verbose)
             return discoveredData
         }
@@ -108,7 +111,8 @@ interface ServiceApi {
                         .split('&')
                     val nextQuery = requestedNext.first()
                     val nextOffset = data.next_offset
-                    if (verbose) println("Requetage Node complémentaire avec offset ${data.next_offset} ${next}")
+                    if (verbose) logger.info("Requetage Node complémentaire avec offset ${data.next_offset} ${next}")
+                    else logger.debug("Requetage Node complémentaire avec offset ${data.next_offset} ${next}")
                     getAllDataFragment(
                         serverUrl,
                         unsafe,

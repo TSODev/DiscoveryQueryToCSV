@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "fr.tsodev"
-version = "1.0.1"
+version = "1.0.2"
 
 repositories {
     google()
@@ -19,6 +19,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
     implementation("com.xenomachina:kotlin-argparser:2.0.7")
     implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.9.1")
+    implementation("io.github.oshai:kotlin-logging-jvm:4.0.0")
+    implementation("org.slf4j:slf4j-simple:2.0.3")
+
     testImplementation(kotlin("test"))
 }
 
