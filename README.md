@@ -23,9 +23,12 @@ required arguments:
 
 optional arguments:
 
-  -h, --help       :     show this help message and exit
+  -h, --help       :     affiche ce message d'aide
 
   -v, --verbose    :     valide le mode verbeux
+
+  -x, --unsecure   :     ne vérifie pas le certificat SSL (utile
+avec des certificats auto signés)
 
   **-q QUERY**,**--query QUERY**  :
   requete sur le serveur (par défaut : *search Host*)
